@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/types/product";
@@ -18,6 +18,28 @@ interface ProductCarouselProps {
 
 export function ProductCarousel({ items }: ProductCarouselProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const updateScrollState = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 1);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  };
+
+  useEffect(() => {
+    updateScrollState();
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateScrollState);
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items]);
 
   const scrollByPage = (direction: 1 | -1) => {
     const el = scrollerRef.current;
@@ -27,18 +49,20 @@ export function ProductCarousel({ items }: ProductCarouselProps) {
 
   return (
     <div className="relative">
-      <button
-        type="button"
-        aria-label="Scroll left"
-        onClick={() => scrollByPage(-1)}
-        className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-surface p-2 shadow-md hover:bg-surface-muted"
-      >
-        <ArrowRightIcon className="h-4 w-4 rotate-180 text-text-primary" />
-      </button>
+      {canScrollLeft && (
+        <button
+          type="button"
+          aria-label="Scroll left"
+          onClick={() => scrollByPage(-1)}
+          className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-surface p-2 shadow-md hover:bg-surface-muted"
+        >
+          <ArrowRightIcon className="h-4 w-4 rotate-180 text-text-primary" />
+        </button>
+      )}
 
       <div
         ref={scrollerRef}
-        className="-mx-4 flex scroll-smooth gap-4 overflow-x-auto px-4 pb-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
+        className="scrollbar-hide -mx-4 flex scroll-smooth gap-4 overflow-x-auto px-4 pb-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
       >
         {items.map(({ product, isNew }) => (
           <Link
@@ -57,14 +81,16 @@ export function ProductCarousel({ items }: ProductCarouselProps) {
         ))}
       </div>
 
-      <button
-        type="button"
-        aria-label="Scroll right"
-        onClick={() => scrollByPage(1)}
-        className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-surface p-2 shadow-md hover:bg-surface-muted"
-      >
-        <ArrowRightIcon className="h-4 w-4 text-text-primary" />
-      </button>
+      {canScrollRight && (
+        <button
+          type="button"
+          aria-label="Scroll right"
+          onClick={() => scrollByPage(1)}
+          className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-surface p-2 shadow-md hover:bg-surface-muted"
+        >
+          <ArrowRightIcon className="h-4 w-4 text-text-primary" />
+        </button>
+      )}
     </div>
   );
 }
