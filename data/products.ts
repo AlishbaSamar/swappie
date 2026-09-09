@@ -1,4 +1,4 @@
-import { Product } from "@/types/product";
+import { Product, ProductCategory } from "@/types/product";
 
 /**
  * Mock product data. Shaped to mirror what a real API response would look
@@ -8,6 +8,7 @@ import { Product } from "@/types/product";
 export const products: Product[] = [
   {
     id: "iphone-13-128",
+    category: "iPhone",
     name: "iPhone 13",
     model: "iPhone 13",
     conditionGrade: "Excellent",
@@ -21,6 +22,7 @@ export const products: Product[] = [
   },
   {
     id: "iphone-13-pro-256",
+    category: "iPhone",
     name: "iPhone 13 Pro",
     model: "iPhone 13 Pro",
     conditionGrade: "Good",
@@ -34,6 +36,7 @@ export const products: Product[] = [
   },
   {
     id: "iphone-12-64",
+    category: "iPhone",
     name: "iPhone 12",
     model: "iPhone 12",
     conditionGrade: "Fair",
@@ -47,6 +50,7 @@ export const products: Product[] = [
   },
   {
     id: "iphone-14-128",
+    category: "iPhone",
     name: "iPhone 14",
     model: "iPhone 14",
     conditionGrade: "Excellent",
@@ -60,6 +64,7 @@ export const products: Product[] = [
   },
   {
     id: "iphone-14-pro-max-256",
+    category: "iPhone",
     name: "iPhone 14 Pro Max",
     model: "iPhone 14 Pro Max",
     conditionGrade: "Good",
@@ -73,6 +78,7 @@ export const products: Product[] = [
   },
   {
     id: "iphone-11-64",
+    category: "iPhone",
     name: "iPhone 11",
     model: "iPhone 11",
     conditionGrade: "Fair",
@@ -86,6 +92,7 @@ export const products: Product[] = [
   },
   {
     id: "iphone-se-3-64",
+    category: "iPhone",
     name: "iPhone SE (3rd gen)",
     model: "iPhone SE 2022",
     conditionGrade: "Excellent",
@@ -99,6 +106,7 @@ export const products: Product[] = [
   },
   {
     id: "iphone-15-128",
+    category: "iPhone",
     name: "iPhone 15",
     model: "iPhone 15",
     conditionGrade: "Excellent",
@@ -112,6 +120,7 @@ export const products: Product[] = [
   },
   {
     id: "iphone-12-pro-128",
+    category: "iPhone",
     name: "iPhone 12 Pro",
     model: "iPhone 12 Pro",
     conditionGrade: "Good",
@@ -125,6 +134,7 @@ export const products: Product[] = [
   },
   {
     id: "iphone-xr-64",
+    category: "iPhone",
     name: "iPhone XR",
     model: "iPhone XR",
     conditionGrade: "Fair",
@@ -135,6 +145,90 @@ export const products: Product[] = [
     warrantyMonths: 6,
     storageOptions: ["64GB"],
     colorOptions: ["Black", "White", "Coral"],
+  },
+  {
+    id: "macbook-air-m2-256",
+    category: "MacBook",
+    name: "MacBook Air M2",
+    model: "MacBook Air M2 13\"",
+    conditionGrade: "Excellent",
+    price: 799,
+    originalPrice: 1099,
+    images: ["https://picsum.photos/seed/macbook-air-1/800/800", "https://picsum.photos/seed/macbook-air-2/800/800"],
+    stockStatus: "In Stock",
+    warrantyMonths: 12,
+    storageOptions: ["256GB", "512GB"],
+    colorOptions: ["Space Gray", "Silver", "Starlight"],
+  },
+  {
+    id: "macbook-pro-m1-512",
+    category: "MacBook",
+    name: "MacBook Pro M1",
+    model: "MacBook Pro M1 14\"",
+    conditionGrade: "Good",
+    price: 999,
+    originalPrice: 1399,
+    images: ["https://picsum.photos/seed/macbook-pro-1/800/800", "https://picsum.photos/seed/macbook-pro-2/800/800"],
+    stockStatus: "In Stock",
+    warrantyMonths: 12,
+    storageOptions: ["512GB", "1TB"],
+    colorOptions: ["Space Gray", "Silver"],
+  },
+  {
+    id: "airpods-pro-2",
+    category: "AirPods",
+    name: "AirPods Pro (2nd gen)",
+    model: "AirPods Pro 2",
+    conditionGrade: "Excellent",
+    price: 149,
+    originalPrice: 249,
+    images: ["https://picsum.photos/seed/airpods-pro-1/800/800", "https://picsum.photos/seed/airpods-pro-2/800/800"],
+    stockStatus: "In Stock",
+    warrantyMonths: 12,
+    storageOptions: [],
+    colorOptions: ["White"],
+  },
+  {
+    id: "airpods-4",
+    category: "AirPods",
+    name: "AirPods 4",
+    model: "AirPods 4",
+    conditionGrade: "Good",
+    price: 89,
+    originalPrice: 149,
+    images: ["https://picsum.photos/seed/airpods-4-1/800/800", "https://picsum.photos/seed/airpods-4-2/800/800"],
+    stockStatus: "Low Stock",
+    warrantyMonths: 6,
+    storageOptions: [],
+    colorOptions: ["White"],
+  },
+  {
+    id: "ipad-air-5",
+    category: "iPad",
+    name: "iPad Air (5th gen)",
+    model: "iPad Air 5",
+    conditionGrade: "Excellent",
+    price: 449,
+    originalPrice: 649,
+    images: ["https://picsum.photos/seed/ipad-air-1/800/800", "https://picsum.photos/seed/ipad-air-2/800/800"],
+    stockStatus: "In Stock",
+    warrantyMonths: 12,
+    storageOptions: ["64GB", "256GB"],
+    colorOptions: ["Space Gray", "Blue", "Starlight"],
+  },
+  {
+    id: "ipad-pro-11",
+    category: "iPad",
+    name: "iPad Pro 11\"",
+    model: "iPad Pro 11-inch",
+    conditionGrade: "Good",
+    price: 599,
+    originalPrice: 899,
+    images: ["https://picsum.photos/seed/ipad-pro-1/800/800", "https://picsum.photos/seed/ipad-pro-2/800/800"],
+    stockStatus: "In Stock",
+    warrantyMonths: 12,
+    storageOptions: ["128GB", "256GB"],
+    colorOptions: ["Space Gray", "Silver"],
   },
 ];
 
@@ -148,4 +242,12 @@ export function getProductById(id: string): Product | undefined {
 
 export function getFeaturedProducts(limit = 8): Product[] {
   return products.slice(0, limit);
+}
+
+export function getProductsByCategory(category: ProductCategory): Product[] {
+  return products.filter((product) => product.category === category);
+}
+
+export function getFirstProductByCategory(category: ProductCategory): Product | undefined {
+  return products.find((product) => product.category === category);
 }

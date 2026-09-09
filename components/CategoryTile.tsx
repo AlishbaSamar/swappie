@@ -15,12 +15,12 @@ export function CategoryTile({ label, href, image, isNew, highlight }: CategoryT
   return (
     <Link href={href} className="block h-full">
       <Card
-        className={`relative flex h-full flex-col items-center justify-center gap-4 overflow-visible p-8 text-center transition-shadow hover:shadow-md ${
+        className={`relative flex h-full flex-col items-center justify-center gap-3 overflow-visible p-4 text-center transition-shadow hover:shadow-md ${
           highlight ? "bg-tag-new-bg" : ""
         }`}
       >
-        <div className="relative h-24 w-24">
-          <Image src={image} alt={label} fill sizes="96px" className="rounded-md object-cover" />
+        <div className="relative h-16 w-16">
+          <Image src={image} alt={label} fill sizes="64px" className="rounded-md object-cover" />
         </div>
         <span className="text-lg font-semibold text-text-primary">{label}</span>
         {isNew && (

@@ -11,7 +11,7 @@
 export const theme = {
   brand: {
     name: "RefreshedPhones",
-    tagline: "Expertly refurbished iPhones, tested and ready to love again.",
+    tagline: "Expertly refurbished tech, tested and ready to love again.",
     logoText: "RP", // short mark used in compact spaces (e.g. mobile nav)
   },
 

@@ -9,10 +9,15 @@ import { DealOfTheWeek } from "@/components/DealOfTheWeek";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { BlogPostCard } from "@/components/BlogPostCard";
 import { ArrowRightIcon } from "@/components/icons";
-import { getAllProducts, getFeaturedProducts, getProductById } from "@/data/products";
+import {
+  getAllProducts,
+  getFeaturedProducts,
+  getProductById,
+  getFirstProductByCategory,
+} from "@/data/products";
 import { getFeaturedTestimonials, reviewStats } from "@/data/testimonials";
 import { getRecentBlogPosts } from "@/data/blogPosts";
-import { ConditionGrade } from "@/types/product";
+import { ConditionGrade, ProductCategory } from "@/types/product";
 
 const conditionTiles: { condition: ConditionGrade; description: string }[] = [
   { condition: "Excellent", description: "Looks brand new, no visible wear" },
@@ -20,11 +25,11 @@ const conditionTiles: { condition: ConditionGrade; description: string }[] = [
   { condition: "Fair", description: "Visible wear, great value price" },
 ];
 
-const generationCategories = [
-  { label: "iPhone 15 Series", productId: "iphone-15-128", isNew: true },
-  { label: "iPhone 14 Series", productId: "iphone-14-pro-max-256" },
-  { label: "iPhone 13 Series", productId: "iphone-13-pro-256" },
-  { label: "iPhone 12 & Older", productId: "iphone-12-pro-128" },
+const productCategories: { label: string; category: ProductCategory; isNew?: boolean; highlight?: boolean }[] = [
+  { label: "MacBooks", category: "MacBook", isNew: true, highlight: true },
+  { label: "iPhones", category: "iPhone" },
+  { label: "AirPods", category: "AirPods" },
+  { label: "iPads", category: "iPad" },
 ];
 
 export default function HomePage() {
@@ -40,7 +45,7 @@ export default function HomePage() {
       <section className="bg-hero">
         <div className="mx-auto max-w-7xl px-4 py-8 text-center sm:px-6 lg:px-8">
           <h1 className="text-2xl font-bold tracking-tight text-accent sm:text-4xl">
-            Expertly refurbished iPhones
+            Expertly refurbished tech
           </h1>
           <p className="mt-2 text-base text-text-primary/80">
             Peace of mind with a {featuredProducts[0].warrantyMonths}-month warranty and easy returns
@@ -48,21 +53,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Shop by generation — Swappie-style category grid */}
+      {/* Shop by category — Swappie-style category grid */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <h2 className="text-center text-2xl font-bold text-accent sm:text-3xl">
-          The simple way to buy your next iPhone
+          The simple way to buy, sell &amp; trade
         </h2>
-        <div className="mx-auto mt-8 grid max-w-3xl grid-cols-2 gap-4">
-          {generationCategories.map((category) => {
-            const product = getProductById(category.productId)!;
+        <div className="mx-auto mt-8 grid max-w-4xl grid-cols-2 gap-3">
+          {productCategories.map((entry) => {
+            const product = getFirstProductByCategory(entry.category)!;
             return (
               <CategoryTile
-                key={category.label}
-                label={category.label}
-                href={`/products?series=${encodeURIComponent(category.label)}`}
+                key={entry.category}
+                label={entry.label}
+                href={`/products?category=${encodeURIComponent(entry.category)}`}
                 image={product.images[0]}
-                isNew={category.isNew}
+                isNew={entry.isNew}
+                highlight={entry.highlight}
               />
             );
           })}
@@ -73,7 +79,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl py-14">
         <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-accent sm:text-3xl">
-            Explore our latest refurbished iPhones
+            Explore our latest refurbished tech
           </h2>
         </div>
         <div className="mt-8">
@@ -140,7 +146,7 @@ export default function HomePage() {
           </div>
           <div className="px-6 pb-8">
             <p className="text-lg font-medium text-text-primary">
-              Checked by professional technicians — our iPhones work like new and come in every model, color, and
+              Checked by professional technicians — our devices work like new and come in every model, color, and
               size.
             </p>
             <Link
@@ -168,7 +174,7 @@ export default function HomePage() {
       {/* Featured products */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-accent sm:text-3xl">Featured iPhones</h2>
+          <h2 className="text-2xl font-bold text-accent sm:text-3xl">Featured Products</h2>
           <Link
             href="/products"
             className="hidden text-sm font-medium text-accent hover:text-accent-hover sm:inline"

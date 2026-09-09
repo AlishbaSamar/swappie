@@ -13,10 +13,11 @@ const navItems: NavItem[] = [
     label: "Buy",
     href: "/products",
     children: [
-      { label: "All iPhones", href: "/products" },
-      { label: "Excellent Condition", href: "/products?condition=Excellent" },
-      { label: "Good Condition", href: "/products?condition=Good" },
-      { label: "Fair Condition", href: "/products?condition=Fair" },
+      { label: "All Products", href: "/products" },
+      { label: "MacBooks", href: "/products?category=MacBook" },
+      { label: "iPhones", href: "/products?category=iPhone" },
+      { label: "AirPods", href: "/products?category=AirPods" },
+      { label: "iPads", href: "/products?category=iPad" },
     ],
   },
   {
