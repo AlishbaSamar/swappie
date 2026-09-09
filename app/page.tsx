@@ -9,12 +9,7 @@ import { DealOfTheWeek } from "@/components/DealOfTheWeek";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { BlogPostCard } from "@/components/BlogPostCard";
 import { ArrowRightIcon } from "@/components/icons";
-import {
-  getAllProducts,
-  getFeaturedProducts,
-  getProductById,
-  getFirstProductByCategory,
-} from "@/data/products";
+import { getFeaturedProducts, getProductById, getFirstProductByCategory } from "@/data/products";
 import { getFeaturedTestimonials, reviewStats } from "@/data/testimonials";
 import { getRecentBlogPosts } from "@/data/blogPosts";
 import { ConditionGrade, ProductCategory } from "@/types/product";
@@ -32,12 +27,36 @@ const productCategories: { label: string; category: ProductCategory; isNew?: boo
   { label: "iPads", category: "iPad" },
 ];
 
+// Curated, interleaved order for the "latest tech" carousel — mixes
+// categories instead of grouping them, with a few items marked as new.
+const latestTechShowcase: { productId: string; isNew?: boolean }[] = [
+  { productId: "macbook-air-m1-13", isNew: true },
+  { productId: "macbook-pro-m1-512", isNew: true },
+  { productId: "ipad-air-5" },
+  { productId: "iphone-15-pro-128" },
+  { productId: "airpods-4" },
+  { productId: "macbook-pro-m4-16", isNew: true },
+  { productId: "iphone-15-plus-128" },
+  { productId: "iphone-14-pro-max-256" },
+  { productId: "iphone-13-pro-256" },
+  { productId: "ipad-pro-11" },
+  { productId: "airpods-pro-2" },
+  { productId: "macbook-air-m2-256" },
+  { productId: "iphone-15-128" },
+  { productId: "iphone-14-128" },
+  { productId: "iphone-13-128" },
+  { productId: "iphone-12-pro-128" },
+];
+
 export default function HomePage() {
-  const allProducts = getAllProducts();
   const featuredProducts = getFeaturedProducts(8);
   const dealProduct = getProductById("iphone-15-128")!;
   const testimonials = getFeaturedTestimonials(4);
   const recentPosts = getRecentBlogPosts(3);
+  const carouselItems = latestTechShowcase.map((entry) => ({
+    product: getProductById(entry.productId)!,
+    isNew: entry.isNew,
+  }));
 
   return (
     <>
@@ -83,7 +102,7 @@ export default function HomePage() {
           </h2>
         </div>
         <div className="mt-8">
-          <ProductCarousel products={allProducts} newestId="iphone-15-128" />
+          <ProductCarousel items={carouselItems} />
         </div>
       </section>
 
